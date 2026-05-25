@@ -32,7 +32,7 @@ async function run() {
   try {
 
     /* Connect Database */
-    // await client.connect();
+    await client.connect();
 
     console.log("MongoDB Connected Successfully");
 
