@@ -49,6 +49,8 @@ async function run() {
     const feesCollection = database.collection("fees");
     const usersCollection = database.collection("users");
     const routineCollection = database.collection("routine");
+    const homepageCollection = database.collection("homepage");
+    const coursesCollection = database.collection("courses");
 
     /* Root Route */
     app.get("/", (req, res) => {
@@ -236,6 +238,49 @@ async function run() {
       const routineData = req.body;
 
       const result = await routineCollection.insertOne(routineData);
+
+      res.send(result);
+
+    });
+
+    /* Homepage Data */
+    app.get("/homepage", async (req, res) => {
+
+      const result = await homepageCollection.findOne();
+
+      res.send(result);
+
+    });
+
+    app.put("/homepage", async (req, res) => {
+
+      const updatedData = req.body;
+
+      const result = await homepageCollection.updateOne(
+        {},
+        {
+          $set: updatedData,
+        }
+      );
+
+      res.send(result);
+
+    });
+
+    /* Courses */
+    app.get("/courses", async (req, res) => {
+
+      const result = await coursesCollection.find().toArray();
+
+      res.send(result);
+
+    });
+
+    app.post("/courses", async (req, res) => {
+
+      const courseData = req.body;
+
+      const result = await coursesCollection.insertOne(courseData);
 
       res.send(result);
 
